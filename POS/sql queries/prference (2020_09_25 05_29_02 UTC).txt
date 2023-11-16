@@ -1,0 +1,4 @@
+1. Go to VB Editor Screen (Alt+F11)
+2. Tools –> References…
+3. From the List of Available References Select “Microsoft ActiveX Data Objects 2.0 Library” You can select 2.0 Version or any other higher version of this reference.
+4. Click OK

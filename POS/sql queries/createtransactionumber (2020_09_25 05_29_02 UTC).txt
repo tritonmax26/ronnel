@@ -1,0 +1,18 @@
+  Sub CreatetransactionNo()
+
+        cmd.CommandText = "USP_EC_AutoNo" 
+        cmd.CommandType = CommandType.StoredProcedure
+        cmd.Connection = sqlconn
+        dt = New DataTable
+        da = New SqlDataAdapter(cmd)
+
+        da.Fill(dt)
+        cmd.ExecuteNonQuery()
+        cmd.Dispose()
+
+
+
+       
+        TrnsctionNo_txtbx.Text = dt.Rows(0).Item(0).ToString()
+
+    End Sub

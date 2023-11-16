@@ -1,0 +1,57 @@
+ Dim isExisting As Boolean = False
+        strNC = "SELECT * FROM StudentsMaster"
+        cmd = New SqlCommand(str, sqlconn)
+        dr = NCcmd.ExecuteReader()
+        While NCdr.Read()
+            If dr("FirstName").ToString().Equals(fname_txtbx.Text) And dr("MiddleName").ToString().Equals(Mname_txtbx.Text) And dr("LastName").ToString().Equals(Lname_txtbx.Text) And CDate(dr("BirthDate").ToString()).ToString("MM/dd/yyyy") = BirthDateTimePicker1.Value.ToString("MM/dd/yyyy") Then
+                isExisting = True
+                Exit While
+            End If
+        End While
+        cmd.Dispose()
+        dr.Close()
+
+        If isExisting = True Then
+            ErrorProvider1.SetError(fname_txtbx, "Name already exist")
+        ElseIf fname_txtbx.Text = "" Then
+            ErrorProvider1.SetError(fname_txtbx, "Please Complete Details!")
+        ElseIf Mname_txtbx.Text = "" Then
+            ErrorProvider1.SetError(Mname_txtbx, "Please Complete Details!")
+        ElseIf Lname_txtbx.Text = "" Then
+            ErrorProvider1.SetError(Lname_txtbx, "Please Complete Details!")
+        ElseIf gender_cb.Text = Nothing Then
+            ErrorProvider1.SetError(gender_cb, "Please Complete Details!")
+        ElseIf BirthDateTimePicker1.Value = Now Then
+            ErrorProvider1.SetError(BirthDateTimePicker1, "Invalid Year")
+        ElseIf Age_txtbx.Text = "" Then
+            ErrorProvider1.SetError(Age_txtbx, "Please Complete Details!")
+        ElseIf crs_txtbx.Text = "" Then
+            ErrorProvider1.SetError(crs_txtbx, "Please Complete Details!")
+        ElseIf Degree_txtbx.Text = "" Then
+            ErrorProvider1.SetError(crs_txtbx, "Please Complete Details!")
+        ElseIf yearlvl_cb.Text = "" Then
+            ErrorProvider1.SetError(yearlvl_cb, "Please Complete Details!")
+        ElseIf section_txtbx.Text = "" Then
+            ErrorProvider1.SetError(section_txtbx, "Please Complete Details!")
+        ElseIf Term_cb.Text = "" Then
+            ErrorProvider1.SetError(Term_cb, "Please Complete Details!")
+        ElseIf address_txtbx.Text = "" Then
+            ErrorProvider1.SetError(address_txtbx, "Please Complete Details!")
+        ElseIf contact_txtbx.Text = "" Then
+            ErrorProvider1.SetError(contact_txtbx, "Please Complete Details!")
+            
+        Else
+            ErrorProvider1.Clear()
+            Dim confirm = MsgBox("Do You Want to Save?", MsgBoxStyle.YesNo, "Process message:")
+            If confirm = MsgBoxResult.Yes Then
+
+                Action = "C"
+                sp()
+                MsgBox("Record Has Been Saved", MsgBoxStyle.Information, "Process Message:")
+                CreateNewAutoNumber()
+                AutoNumber()
+                gridview()
+                CLR()
+
+            End If
+        End If

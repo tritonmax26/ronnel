@@ -1,0 +1,37 @@
+
+Dim conn As New ADODB.Connection
+Dim rst As New ADODB.Recordset
+Dim query As String
+Dim Username As String
+Dim Password As String
+
+If TextBox1.Value = "" And Textbox2.Value = "" Then
+MsgBox "Please input username and password", vbCritical
+ElseIf TextBox1.Value = "" Then
+MsgBox "Please input username", vbCritical
+ElseIf Textbox2.Value = "" Then
+MsgBox "Please input username and password", vbCritical
+Else
+
+Username = TextBox1.Text
+Password = Textbox2.Text
+
+conn.Open "Provider=Microsoft.ACE.OLEDB.12.0;" & _
+"Data Source = C:\Users\Chito\Documents\sample.accdb;"
+
+query = "Select * from  tbl_user where Username = '" & Username & "'"
+rst.Open query, conn, adOpenKeyset
+
+If rst.RecordCount = 0 Then
+MsgBox "incorrect username"
+
+ElseIf rst.Fields("Password").Value = Password Then
+MsgBox "LOGIN SUCESSFUL"
+result = 1
+Else
+MsgBox "LOGIN Failed"
+
+End If
+end if
+rst.Close
+conn.Close

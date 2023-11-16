@@ -1,0 +1,4 @@
+SELECT        TransactionNo, EventCode, EventDescription, EventDate, StudentID, FirstName, LastName, Course, Term, AmountDue, AmountTendered
+FROM            Paymenttable
+WHERE        (CONVERT(VARCHAR(10), TransactionDate, 101) BETWEEN CONVERT(VARCHAR(10), @datefrom, 101) AND CONVERT(VARCHAR(10), @dateto, 101)) AND 
+                         (Course LIKE '%' + @Course + '%')

@@ -1,0 +1,10 @@
+1. double click ka sa textbox
+2. hanapin mo yung may kidlat sa taas dropdown mo yun tapos hanapin mo yung keypress
+3. under keypress ng textbox mo code mo to
+
+
+        If Asc(e.KeyChar) <> 8 Then
+            If Asc(e.KeyChar) < 48 Or Asc(e.KeyChar) > 57 Then
+                e.Handled = True
+            End If
+        End If

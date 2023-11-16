@@ -1,0 +1,54 @@
+ Public Sub dispRec(ByVal PstrSQL As String)
+
+        Me.DataGridViewstudents.Rows.Clear()
+        With NCcmd
+            .CommandText = PstrSQL
+            NCdr = NCcmd.ExecuteReader()
+        End With
+        Do While NCdr.Read
+            Me.DataGridViewstudents.Rows.Add(NCdr!StudentID.ToString.Trim, NCdr!FirstName.ToString.Trim, NCdr!MiddleName.ToString.Trim, NCdr!LastName.ToString.Trim, NCdr!Gender.ToString.Trim, NCdr!Course.ToString.Trim, NCdr!Year.ToString.Trim, NCdr!Section.ToString.Trim, NCdr!Term.ToString.Trim, NCdr!Address.ToString.Trim, NCdr!ContactNo.ToString.Trim)
+            My.Application.DoEvents()
+        Loop
+        NCdr.Close()
+    End Sub
+
+
+
+'ito lagay mo sa search na combobox
+  Private Sub search_txtbx_KeyPress(sender As Object, e As KeyPressEventArgs) Handles search_txtbx.KeyPress
+        If e.KeyChar = Convert.ToChar(Keys.Enter) Then
+            If search_txtbx.Text = "" Then
+                gridview()
+            Else
+
+                DataGridViewstudents.Rows.Clear()
+
+                If search_cb.Text = "StudentID" Then
+                    strNC = "select * from StudentsMaster where StudentID like '%" & Me.search_txtbx.Text.Trim & "%'"
+                    dispRec(strNC)
+                ElseIf search_cb.Text = "Course" Then
+                    strNC = "select * from StudentsMaster where Course like '%" & Me.search_txtbx.Text.Trim & "%'"
+                    dispRec(strNC)
+                ElseIf search_cb.Text = "FirstName" Then
+                    strNC = "select * from StudentsMaster where FirstName like '%" & Me.search_txtbx.Text.Trim & "%'"
+                    dispRec(strNC)
+                ElseIf search_cb.Text = "LastName" Then
+                    strNC = "select * from StudentsMaster where LastName like '%" & Me.search_txtbx.Text.Trim & "%'"
+                    dispRec(strNC)
+                ElseIf search_cb.Text = "Section" Then
+                    strNC = "select * from StudentsMaster where Section like '%" & Me.search_txtbx.Text.Trim & "%'"
+                    dispRec(strNC)
+                ElseIf search_cb.Text = "Year" Then
+                    strNC = "select * from StudentsMaster where Year like '%" & Me.search_txtbx.Text.Trim & "%'"
+                    dispRec(strNC)
+                ElseIf search_cb.Text = "Term" Then
+                    strNC = "select * from StudentsMaster where Term like '%" & Me.search_txtbx.Text.Trim & "%'"
+                    dispRec(strNC)
+                ElseIf search_cb.Text = "" Then
+                    gridview()
+                End If
+            search_cb.Text = ""
+            search_txtbx.Text = ""
+            End If
+        End If
+    End Sub

@@ -1,0 +1,12 @@
+  Dim confirm = MsgBox("Are you sure you want to logout?", MsgBoxStyle.YesNo, "LOGOUT")
+        If confirm = MsgBoxResult.Yes Then
+            My.Application.OpenForms.Cast(Of Form)() _
+                .Except({Login_frm}) _ //lagay mo yung form na di mo cclose 
+
+                .ToList() _
+            .ForEach(Sub(form) form.Close())
+           
+            Login_frm.Show()
+            
+
+        End If

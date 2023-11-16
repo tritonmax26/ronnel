@@ -1,0 +1,24 @@
+'1. paste mo lang to sa bakante
+
+Private Function isValid(ByVal strText) As Boolean
+        Dim regex As Regex = New Regex("[^a-zA-Z\s]")
+        Dim match As Match = regex.Match(strText)
+        If match.Success Then
+            Return False
+        Else
+            Return True
+        End If
+    End Function
+___________________________________________________________________________________
+'2. tapos double click ka sa desired textbox mo under private sub........textchange
+
+ If isValid(fname_txtbx.Text) Then 'isvalid yan yung function sa loob yung textbox mo 
+ 'ito yung condition kung valid yung ininput na text          
+
+        Else 'kapag hinde
+             MsgBox("Invalid Firstname", MsgBoxStyle.Exclamation, "Error message")
+        End If
+
+
+
+

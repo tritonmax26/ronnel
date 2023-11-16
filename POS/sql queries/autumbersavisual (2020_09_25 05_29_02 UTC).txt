@@ -1,0 +1,48 @@
+ Sub CreateNewAutoNumber()
+        Try
+            Dim cmd As New SqlCommand
+            With cmd
+                .Connection = sqlconn
+                .CommandText = "SP_AutoNo_EPM" //name ng stored procedure ng autonumber
+                .CommandType = CommandType.StoredProcedure
+                .Parameters.AddWithValue("@pfx", "EVT") //prefix char ng autonumber sakin kasi event kaya EVT
+            End With
+            cmd.ExecuteScalar()
+            cmd.Dispose()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+
+    Sub AutoNumber()
+
+        Dim number As String
+        str = "SELECT Max(NewNumber) FROM AutoNo_EPM where pfx = @pfx" //table name ng autonumber
+        cmd = New SqlClient.SqlCommand(str, sqlconn)
+        With cmd
+            .Parameters.AddWithValue("@Pfx", "EVT") //prefix char ng autonumber sakin kasi event kaya EVT
+            If IsDBNull(cmd.ExecuteScalar) Then
+                CreateNewAutoNumber()
+                Dim number1 As String
+                str = "SELECT Max(NewNumber) FROM AutoNo_EPM where pfx = @pfx" //table name ng autonumber
+                cmd = New SqlClient.SqlCommand(str, sqlconn)
+                With cmd
+                    .Parameters.AddWithValue("@pfx", "EVT") //prefix char ng autonumber sakin kasi event kayaEVT
+                    number1 = Convert.ToString(NCcmd.ExecuteScalar)
+                    evntcd_txtbx.Text = number1 // sang textbox mo o object lalagay
+
+                End With
+                NCcmd.ExecuteNonQuery()
+                NCcmd.Dispose()
+            Else
+                number = Convert.ToString(cmd.ExecuteScalar)
+                evntcd_txtbx.Text = number // sang textbox mo o object lalagay
+
+            End If
+
+        End With
+        cmd.ExecuteNonQuery()
+        cmd.Dispose()
+
+    End Sub
